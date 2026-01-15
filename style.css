@@ -1,0 +1,68 @@
+body {
+  background: linear-gradient(180deg, #0b0f19 0%, #0f172a 100%);
+  color: #e5e7eb;
+  min-height: 100vh;
+}
+
+.title {
+  letter-spacing: 1px;
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* Card styling */
+.album-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 18px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  transform: translateY(0);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.album-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.album-img-wrap {
+  position: relative;
+  height: 280px;
+  overflow: hidden;
+}
+
+.album-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+  transition: transform 220ms ease;
+}
+
+.album-card:hover .album-img {
+  transform: scale(1.08);
+}
+
+.card-title {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.card-text {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* Badge */
+.album-badge {
+  display: inline-block;
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.20);
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  color: #e0e7ff;
+  font-weight: 700;
+  width: fit-content;
+}
