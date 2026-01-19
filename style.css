@@ -11,6 +11,68 @@ body {
   text-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
 }
 
+.subtitle {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* Statistics Cards */
+.stat-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #818cf8;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  color: rgba(255, 255, 255, 0.70);
+  font-size: 0.9rem;
+}
+
+/* Search Bar */
+.search-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.input-group-text {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: rgba(255, 255, 255, 0.70);
+}
+
+#searchInput {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: #ffffff;
+  padding: 0.75rem 1rem;
+}
+
+#searchInput::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+#searchInput:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(129, 140, 248, 0.5);
+  color: #ffffff;
+  box-shadow: 0 0 0 0.25rem rgba(129, 140, 248, 0.15);
+}
+
+.search-results {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.70);
+  font-size: 0.9rem;
+  display: none;
+}
+
 /* Card styling */
 .album-card {
   background: rgba(255, 255, 255, 0.06);
@@ -65,4 +127,38 @@ body {
   color: #e0e7ff;
   font-weight: 700;
   width: fit-content;
+}
+
+/* Footer */
+.footer {
+  background: rgba(255, 255, 255, 0.03);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 3rem;
+}
+
+.footer h5, .footer h6 {
+  color: #ffffff;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.footer a {
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer a:hover {
+  color: #818cf8 !important;
+}
+
+.footer hr {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.footer ul {
+  padding: 0;
+}
+
+.footer ul li {
+  margin-bottom: 0.5rem;
 }

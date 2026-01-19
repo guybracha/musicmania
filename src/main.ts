@@ -1,5 +1,7 @@
 import { Album } from "./class/Album.js";
 
+declare const gsap: any;
+
 const albums: Album[] = [
   new Album(
     "The Rise and Fall of Ziggy Stardust and the Spiders from Mars",
@@ -25,6 +27,18 @@ const albums: Album[] = [
     "AC/DC",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSG563E6p5rw9Qg98N8M53jGTyu2tiAj9oHQA&s"
   ),
+  new Album(
+    "Rumours",
+    1977,
+    "Fleetwood Mac",
+    "https://upload.wikimedia.org/wikipedia/en/f/fb/FMacRumours.PNG"
+  ),
+  new Album(
+    "Brothers in Arms",
+    1985,
+    "Dire Straits",
+    "https://upload.wikimedia.org/wikipedia/en/6/67/DS_Brothers_in_Arms.jpg"
+  )
 ];
 
 function renderAlbums(list: Album[]) {
@@ -33,7 +47,7 @@ function renderAlbums(list: Album[]) {
 
   grid.innerHTML = "";
 
-  list.forEach((album) => {
+  list.forEach((album, index) => {
     const col = document.createElement("div");
     col.className = "col-12 col-sm-6 col-lg-4";
 
@@ -51,7 +65,136 @@ function renderAlbums(list: Album[]) {
     `;
 
     grid.appendChild(col);
+
+    // GSAP animations
+    gsap.from(col, {
+      opacity: 0,
+      y: 50,
+      duration: 0.6,
+      delay: index * 0.1,
+      ease: "power2.out"
+    });
+
+    const card = col.querySelector(".album-card");
+    if (card) {
+      card.addEventListener("mouseenter", () => {
+        gsap.to(card, {
+          y: -10,
+          scale: 1.05,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
+
+      card.addEventListener("mouseleave", () => {
+        gsap.to(card, {
+          y: 0,
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
+    }
   });
 }
 
+function updateStatistics(list: Album[]) {
+  const totalAlbumsEl = document.getElementById("totalAlbums");
+  const earliestYearEl = document.getElementById("earliestYear");
+  const latestYearEl = document.getElementById("latestYear");
+
+  if (totalAlbumsEl) {
+    totalAlbumsEl.textContent = list.length.toString();
+  }
+
+  if (list.length > 0) {
+    const years = list.map(album => album.year);
+    const earliest = Math.min(...years);
+    const latest = Math.max(...years);
+
+    if (earliestYearEl) earliestYearEl.textContent = earliest.toString();
+    if (latestYearEl) latestYearEl.textContent = latest.toString();
+  }
+}
+
+function filterAlbums(searchTerm: string): Album[] {
+  const term = searchTerm.toLowerCase().trim();
+  
+  if (!term) return albums;
+
+  return albums.filter(album => 
+    album.title.toLowerCase().includes(term) ||
+    album.artist.toLowerCase().includes(term) ||
+    album.year.toString().includes(term)
+  );
+}
+
+function setupSearch() {
+  const searchInput = document.getElementById("searchInput") as HTMLInputElement;
+  const searchResults = document.getElementById("searchResults");
+
+  if (!searchInput || !searchResults) return;
+
+  searchInput.addEventListener("input", (e) => {
+    const target = e.target as HTMLInputElement;
+    const searchTerm = target.value;
+    const filteredAlbums = filterAlbums(searchTerm);
+
+    // Update results message
+    if (searchTerm.trim()) {
+      searchResults.textContent = `נמצאו ${filteredAlbums.length} תוצאות`;
+      searchResults.style.display = "block";
+    } else {
+      searchResults.style.display = "none";
+    }
+
+    // Re-render albums
+    renderAlbums(filteredAlbums);
+    updateStatistics(filteredAlbums);
+  });
+}
+
+// Animate title on load
+gsap.from(".title", {
+  opacity: 0,
+  y: -30,
+  duration: 1,
+  ease: "bounce.out"
+});
+
+// Animate subtitle
+gsap.from(".subtitle", {
+  opacity: 0,
+  duration: 1,
+  delay: 0.3
+});
+
+// Animate statistics
+gsap.from(".stat-card", {
+  opacity: 0,
+  scale: 0.8,
+  duration: 0.6,
+  stagger: 0.15,
+  delay: 0.5,
+  ease: "back.out(1.7)"
+});
+
+// Animate search bar
+gsap.from(".search-container", {
+  opacity: 0,
+  y: 20,
+  duration: 0.8,
+  delay: 0.8
+});
+
+// Animate footer
+gsap.from(".footer", {
+  opacity: 0,
+  y: 30,
+  duration: 0.8,
+  delay: 1.2
+});
+
 renderAlbums(albums);
+updateStatistics(albums);
+setupSearch();
